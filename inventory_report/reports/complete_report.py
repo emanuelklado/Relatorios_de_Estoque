@@ -12,12 +12,12 @@ class CompleteReport(SimpleReport):
                 inventoried_company[company] = 1
         inventoried = inventoried_company.items()
         product = ""
-        simplest_report = SimpleReport.generate(list)
+        simple_report = SimpleReport.generate(list)
         for name, quantity in inventoried:
             product += f"- {name}: {quantity}/n"
 
         return (
-            f"{simplest_report}/n"
+            f"{simple_report}/n"
             f"Produtos estocados por empresa:/n"
             f"{product}"
         )

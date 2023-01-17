@@ -1,17 +1,29 @@
 from inventory_report.reports.complete_report import CompleteReport
 from inventory_report.reports.simple_report import SimpleReport
 import csv
+import json
 
 
 class Inventory:
-    @staticmethod
-    def import_data(path, report_type):
-        with open(path, encoding="utf-8") as file:
-            inventory_products = csv.DictReader(file)
-            if report_type == "simples":
-                return SimpleReport.generate(list(inventory_products))
-            elif report_type == "completo":
-                return CompleteReport.generate(list(inventory_products))
-            else:
-                print('o valor dever ser "simples" ou "completo"')
-                raise ValueError("Type invalid")
+    def import_data(path, type):
+        if path.endswith(".csv"):
+            return Inventory.open_csv(path, type)
+        elif path.endswith(".json"):
+            return Inventory.read_json(path, type)
+
+    def read_json(path, type):
+        with open(path) as file:
+            dict_list = json.loads(file.read())
+
+        if type == "simples":
+            return SimpleReport.generate(dict_list)
+        else:
+            return CompleteReport.generate(dict_list)
+
+    def open_csv(path, type):
+        with open(path) as file:
+            dict_list = list(csv.DictReader(file))
+        if type == "simples":
+            return SimpleReport.generate(dict_list)
+        else:
+            return CompleteReport.generate(dict_list)
