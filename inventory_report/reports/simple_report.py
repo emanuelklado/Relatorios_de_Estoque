@@ -12,7 +12,7 @@ class SimpleReport:
         return (
             f"Data de fabricação mais antiga: {old_date}\n"
             f"Data de validade mais próxima: {expired_date}\n"
-            f"Empresa com mais produtos: {more_product}\n"
+            f"Empresa com mais produtos: {more_product}"
         )
 
     @classmethod
